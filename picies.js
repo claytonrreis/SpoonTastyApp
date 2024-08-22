@@ -118,40 +118,40 @@
 
 // module.exports = { getLists, getList, createList, updateList, deleteList };
 
-// Get a single grocery list
-router.get("/:id", async (req, res) => {
-  try {
-    const gListId = req.params.id;
-    const groceryList = await GroceryList.findById(gListId);
-    if (!groceryList) {
-      return res.status(404).json({ error: "Grocery list not found" });
-    }
-    res.json({ groceryList });
-  } catch (error) {
-    console.error("Error fetching grocery list:", error.message);
-    res.status(500).json({ error: error.message });
-  }
-});
+// // Get a single grocery list
+// router.get("/:id", async (req, res) => {
+//   try {
+//     const gListId = req.params.id;
+//     const groceryList = await GroceryList.findById(gListId);
+//     if (!groceryList) {
+//       return res.status(404).json({ error: "Grocery list not found" });
+//     }
+//     res.json({ groceryList });
+//   } catch (error) {
+//     console.error("Error fetching grocery list:", error.message);
+//     res.status(500).json({ error: error.message });
+//   }
+// });
 
-// Create a new grocery list
-router.post("/", async (req, res) => {
-  try {
-    const { listName, items, SpoonerName } = req.body;
+// // Create a new grocery list
+// router.post("/", async (req, res) => {
+//   try {
+//     const { listName, items, SpoonerName } = req.body;
 
-    if (!listName || !SpoonerName) {
-      return res
-        .status(400)
-        .json({ error: "List name and Spooner name are required" });
-    }
+//     if (!listName || !SpoonerName) {
+//       return res
+//         .status(400)
+//         .json({ error: "List name and Spooner name are required" });
+//     }
 
-    const newGroceryList = new GroceryList({ listName, items, SpoonerName });
-    await newGroceryList.save();
-    res.status(201).json(newGroceryList);
-  } catch (error) {
-    console.error("Error creating grocery list:", error.message);
-    res.status(500).json({ error: error.message });
-  }
-});
+//     const newGroceryList = new GroceryList({ listName, items, SpoonerName });
+//     await newGroceryList.save();
+//     res.status(201).json(newGroceryList);
+//   } catch (error) {
+//     console.error("Error creating grocery list:", error.message);
+//     res.status(500).json({ error: error.message });
+//   }
+// });
 
 // Update a grocery list alternative route to update
 //   router.put("/:id", async (req, res) => {
@@ -181,3 +181,19 @@ router.post("/", async (req, res) => {
 //   res.status(500).json({ error: error.message });
 // }
 //   });
+
+//CONNECT TO DB
+// const connectDB = async () => {
+//   try {
+//     await mongoose.connect(MONGODB_URI, {});
+//     console.log("MONGODB connected");
+//   } catch (error) {
+//     console.error("Error connecting MONGODB");
+//   }
+// };
+
+// connectDB().then(() => {
+//   app.listen(PORT, () => {
+//     console.log(`The SpoonTasty server runnning on port: ${PORT}`);
+//   });
+// });

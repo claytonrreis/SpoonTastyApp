@@ -1,5 +1,4 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const GroceryList = require("../models/GroceryList");
 const router = express.Router();
 
@@ -9,8 +8,8 @@ router.get("/", async (req, res) => {
     const groceryLists = await GroceryList.find();
     res.json({ groceryLists });
   } catch (error) {
-    console.error("Error fetching grocery lists:", error.message);
-    res.status(500).json({ error: error.message });
+    console.error(error.message);
+    res.status(500).json({ msg: "Error fetching grocery lists:" });
   }
 });
 
@@ -24,8 +23,8 @@ router.get("/:id", async (req, res) => {
     }
     res.json({ groceryList });
   } catch (error) {
-    console.error("Error fetching grocery list:", error.message);
-    res.status(500).json({ error: error.message });
+    console.error(error.message);
+    res.status(500).json({ msg: "Error fetching grocery list:" });
   }
 });
 
@@ -37,15 +36,15 @@ router.post("/", async (req, res) => {
     if (!listName || !SpoonerName) {
       return res
         .status(400)
-        .json({ error: "List name and Spooner name are required" });
+        .json({ msg: "List name and Spooner name are required" });
     }
 
     const newGroceryList = new GroceryList({ listName, items, SpoonerName });
     await newGroceryList.save();
     res.status(201).json(newGroceryList);
   } catch (error) {
-    console.error("Error creating grocery list:", error.message);
-    res.status(500).json({ error: error.message });
+    console.error(error.message);
+    res.status(500).json({ msg: "Error creating grocery list:" });
   }
 });
 
@@ -74,13 +73,13 @@ router.delete("/:id", async (req, res) => {
     const result = await GroceryList.deleteOne({ _id: gListId });
 
     if (result.deletedCount === 0) {
-      return res.status(404).json({ error: "Grocery list not found" });
+      return res.status(404).json({ msg: "Grocery list not found" });
     }
 
-    res.json({ success: "Grocery List deleted" });
+    res.json({ msg: "Grocery List deleted" });
   } catch (error) {
-    console.error("Error deleting grocery list:", error.message);
-    res.status(500).json({ error: error.message });
+    console.error(error.message);
+    res.status(500).json({ msg: "Error deleting grocery list:" });
   }
 });
 
